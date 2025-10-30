@@ -1,0 +1,40 @@
+[
+  {
+    "id": "com-11",
+    "name": "CS Batch 2023",
+    "description": "Peer micro-funding for CS students",
+    "scope": "institution",
+    "creatorId": "stu-001",
+    "members": ["stu-001"],
+    "posts": [
+      {
+        "id": "poll-1",
+        "studentId": "stu-001",
+        "amount": 500,
+        "title": "Need ₹500 for lab fee",
+        "votesFor": 8,
+        "votesAgainst": 1,
+        "status": "open"
+      }
+    ]
+  },
+  {
+    "id": "com-22",
+    "name": "Robotics Club",
+    "description": "Robotics community fund",
+    "scope": "friends",
+    "creatorId": "stu-002",
+    "members": ["stu-001", "stu-002"],
+    "posts": [
+      {
+        "id": "poll-2",
+        "studentId": "stu-002",
+        "amount": 700,
+        "title": "Sensor purchase",
+        "votesFor": 5,
+        "votesAgainst": 2,
+        "status": "funded"
+      }
+    ]
+  }
+]

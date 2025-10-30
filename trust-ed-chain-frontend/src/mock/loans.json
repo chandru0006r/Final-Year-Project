@@ -1,0 +1,34 @@
+[
+  {
+    "id": "loan-1001",
+    "studentId": "stu-001",
+    "amount": 25000,
+    "purpose": "Laptop repair",
+    "status": "pending",
+    "mentorApproved": false,
+    "investorFunded": false,
+    "adminApproved": false,
+    "interestRate": 10.5,
+    "college": "ABC College",
+    "trustScore": 78,
+    "isBigLoan": true,
+    "documents": [],
+    "viewRequests": []
+  },
+  {
+    "id": "loan-1002",
+    "studentId": "stu-002",
+    "amount": 15000,
+    "purpose": "Lab course fee",
+    "status": "approved",
+    "mentorApproved": true,
+    "investorFunded": false,
+    "adminApproved": false,
+    "interestRate": 9.0,
+    "college": "ABC College",
+    "trustScore": 88,
+    "isBigLoan": false,
+    "documents": [],
+    "viewRequests": []
+  }
+]

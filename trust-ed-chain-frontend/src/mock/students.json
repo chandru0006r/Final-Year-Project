@@ -1,0 +1,52 @@
+[
+  {
+    "id": "stu-001",
+    "name": "Aarav Sharma",
+    "email": "aarav@example.edu",
+    "role": "student",
+    "college": "ABC College",
+    "cgpa": 8.7,
+    "department": "Computer Science",
+    "semester": 5,
+    "trustScore": 78,
+    "trustBreakdown": {
+      "academics": 80,
+      "repayments": 70,
+      "mentorRating": 85
+    },
+    "sefBalance": 12000,
+    "sefWithdrawalLimit": 10000,
+    "sefRepayments": [
+      { "date": "2025-01-15", "amount": 1000 },
+      { "date": "2025-02-15", "amount": 1200 },
+      { "date": "2025-03-15", "amount": 900 }
+    ],
+    "mentorId": "men-101",
+    "communities": ["com-11", "com-22"],
+    "kycVerified": true
+  },
+  {
+    "id": "stu-002",
+    "name": "Sara Iyer",
+    "email": "sara@example.edu",
+    "role": "student",
+    "college": "ABC College",
+    "cgpa": 9.1,
+    "department": "Electronics",
+    "semester": 3,
+    "trustScore": 88,
+    "trustBreakdown": {
+      "academics": 92,
+      "repayments": 85,
+      "mentorRating": 87
+    },
+    "sefBalance": 8000,
+    "sefWithdrawalLimit": 8000,
+    "sefRepayments": [
+      { "date": "2025-02-01", "amount": 700 }
+    ],
+    "mentorId": "men-101",
+    "communities": ["com-22"],
+    "kycVerified": false
+  }
+]
