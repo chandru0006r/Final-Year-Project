@@ -16,11 +16,13 @@ export default function Login() {
     e.preventDefault();
     setError('');
     try {
-      await login({ role, email, password });
-      const redirect = role === 'mentor' ? '/mentor' : role === 'admin' ? '/college-admin' : role === 'investor' ? '/investor' : '/dashboard';
+      const userData = await login({ role, email, password });
+      // Use the ACTUAL role from the backend response, not the dropdown state
+      const userRole = userData.role;
+      const redirect = userRole === 'mentor' ? '/mentor' : userRole === 'admin' ? '/college-admin' : userRole === 'investor' ? '/investor' : '/dashboard';
       navigate(redirect);
     } catch (err) {
-      setError(err?.message || 'Login failed');
+      setError(err.response?.data?.message || err.message || 'Login failed');
     }
   };
 
@@ -38,8 +40,18 @@ export default function Login() {
             <option key={r} value={r}>{r}</option>
           ))}
         </select>
-        {error && <p className="text-sm text-red-600 mb-3">{error}</p>}
+        {error && <div className="text-sm text-red-600 bg-red-50 p-2 rounded mb-3 border border-red-200">{error}</div>}
         <button className="btn-primary w-full" type="submit">Login</button>
+
+        <div className="mt-4 text-center text-sm text-gray-600">
+          <p>Don't have an account?</p>
+          <div className="flex justify-center gap-4 mt-1">
+            <button type="button" onClick={() => navigate('/register-investor')} className="text-blue-600 hover:underline">
+              Register as Investor
+            </button>
+            {/* Add other registration links later if needed */}
+          </div>
+        </div>
       </form>
     </div>
   );

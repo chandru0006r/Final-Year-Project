@@ -14,7 +14,8 @@ const ROLE_NAV = {
     { to: '/profile', label: 'Profile' },
   ],
   admin: [
-    { to: '/college-admin', label: 'College Admin' },
+    { to: '/college-admin/network', label: 'Network' },
+    { to: '/college-admin/approvals', label: 'Loan Approvals' },
     { to: '/profile', label: 'Profile' },
   ],
   investor: [
@@ -36,10 +37,9 @@ export default function Sidebar() {
             key={n.to}
             to={n.to}
             className={({ isActive }) =>
-              `block px-3 py-2 rounded-lg transition-colors ${
-                isActive
-                  ? 'bg-primary-600 text-white'
-                  : 'hover:bg-gray-100 dark:hover:bg-gray-800'
+              `block px-3 py-2 rounded-lg transition-colors ${isActive
+                ? 'bg-primary-600 text-white'
+                : 'hover:bg-gray-100 dark:hover:bg-gray-800'
               }`
             }
           >

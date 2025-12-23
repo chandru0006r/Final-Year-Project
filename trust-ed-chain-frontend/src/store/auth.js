@@ -1,28 +1,35 @@
 import { create } from 'zustand';
+import { apiClient } from '../lib/apiClient';
 
 export const useAuthStore = create((set, get) => ({
   user: null,
   role: null, // 'student' | 'mentor' | 'admin' | 'investor'
-  isAuthenticated: false,
+  isCheckingAuth: true, // Start true to block rendering until checked
 
-  login: async ({ role = 'student', email, password, name }) => {
-    // Mock auth: require email, password, and role
-    if (!email || !password || !role) {
-      throw new Error('Email, password, and role are required');
+  login: async ({ email, password, role }) => {
+    try {
+      const response = await apiClient.post('/auth/login', { email, password, role });
+      const user = response.data;
+
+      localStorage.setItem('token', user.token);
+
+      set({
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role
+        },
+        role: user.role,
+        isAuthenticated: true,
+        isCheckingAuth: false
+      });
+
+      return user;
+    } catch (error) {
+      console.error("Login Failed:", error);
+      throw error;
     }
-    const derivedName = name || email.split('@')[0];
-    const defaultIds = { student: 'stu-001', mentor: 'men-101', admin: 'adm-001', investor: 'inv-001' };
-    const id = defaultIds[role] || 'demo-000';
-    const user = {
-      id,
-      name: derivedName,
-      email,
-      role,
-      college: role === 'student' ? 'ABC College' : role === 'investor' ? 'Global Investor Network' : 'Trust-Ed University',
-      kycVerified: role === 'investor' ? false : undefined,
-    };
-    set({ user, role, isAuthenticated: true });
-    return user;
   },
 
   completeKYC: () => {
@@ -31,5 +38,40 @@ export const useAuthStore = create((set, get) => ({
     set({ user: { ...user, kycVerified: true } });
   },
 
-  logout: () => set({ user: null, role: null, isAuthenticated: false }),
+  checkAuth: async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      set({ isAuthenticated: false, user: null, role: null, isCheckingAuth: false });
+      return;
+    }
+
+    try {
+      // We assume apiClient automatically adds the Authorization header from localStorage if configured,
+      // OR we might need to rely on the interceptor we saw earlier in apiClient.js
+      const response = await apiClient.get('/auth/me');
+      const user = response.data;
+
+      set({
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          kycVerified: user.kycStatus === 'VERIFIED' // Patching useful helper
+        },
+        role: user.role,
+        isAuthenticated: true,
+        isCheckingAuth: false
+      });
+    } catch (error) {
+      console.error("Session Restore Failed:", error);
+      localStorage.removeItem('token');
+      set({ isAuthenticated: false, user: null, role: null, isCheckingAuth: false });
+    }
+  },
+
+  logout: () => {
+    localStorage.removeItem('token');
+    set({ user: null, role: null, isAuthenticated: false });
+  },
 }));
