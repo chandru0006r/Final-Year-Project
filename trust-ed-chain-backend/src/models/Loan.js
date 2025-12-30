@@ -19,6 +19,10 @@ const loanSchema = new mongoose.Schema({
         enum: ['MICRO', 'MACRO'],
         required: true,
     },
+    interestRate: {
+        type: Number,
+        default: 5.0,
+    },
     status: {
         type: String,
         enum: ['PENDING_MENTOR', 'PENDING_ADMIN', 'APPROVED', 'FUNDED', 'REJECTED', 'REPAID'],

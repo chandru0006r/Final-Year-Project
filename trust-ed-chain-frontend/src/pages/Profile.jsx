@@ -29,6 +29,10 @@ export default function Profile() {
               <div className="text-xl font-semibold">{student?.email}</div>
             </div>
             <div className="card p-4">
+                <div className="text-sm text-gray-500">Register No</div>
+                <div className="text-xl font-semibold">{student?.registerNumber || '-'}</div>
+            </div>
+            <div className="card p-4">
               <div className="text-sm text-gray-500">CGPA</div>
               <div className="text-xl font-semibold">{student?.cgpa}</div>
             </div>

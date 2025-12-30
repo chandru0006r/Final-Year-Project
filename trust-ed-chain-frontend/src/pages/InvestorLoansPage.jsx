@@ -20,7 +20,7 @@ export default function InvestorLoansPage() {
     if (filters.college !== 'all' && l.college !== filters.college) return false;
     if (l.amount < filters.minAmount || l.amount > filters.maxAmount) return false;
     if ((l.interestRate ?? 0) < filters.minInterest || (l.interestRate ?? 0) > filters.maxInterest) return false;
-    if ((l.trustScore ?? 0) < filters.minTrust) return false;
+    if ((l.student?.trustScore ?? 0) < filters.minTrust) return false;
     return l.status !== 'repaid';
   }), [loans, filters]);
 

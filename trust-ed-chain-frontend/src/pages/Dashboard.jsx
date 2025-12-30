@@ -8,9 +8,9 @@ export default function Dashboard() {
   const { student, loans, studentRequests, fetchStudent, fetchLoans, fetchStudentRequests, approveViewRequest } = useStudentStore();
 
   useEffect(() => {
-    if (role === 'student') {
-      fetchStudent('stu-001');
-      fetchStudentRequests('stu-001');
+    if (role === 'student' && user?.id) {
+      fetchStudent(user.id);
+      fetchStudentRequests(user.id);
     }
     fetchLoans();
   }, [role, fetchStudent, fetchLoans, fetchStudentRequests]);
@@ -22,7 +22,15 @@ export default function Dashboard() {
       <h1 className="text-2xl font-semibold">Dashboard</h1>
 
       {role === 'student' && (
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-4 gap-4">
+          <div className="card p-4">
+            <div className="text-sm text-gray-500">Name</div>
+            <div className="text-xl font-semibold">{user?.name}</div>
+          </div>
+          <div className="card p-4">
+            <div className="text-sm text-gray-500">Email</div>
+            <div className="text-xl font-semibold truncate" title={user?.email}>{user?.email}</div>
+          </div>
           <div className="card p-4">
             <div className="text-sm text-gray-500">SEF Balance</div>
             <div className="text-2xl font-semibold mt-1">₹ {student?.sefBalance?.toLocaleString() ?? '—'}</div>
@@ -33,7 +41,7 @@ export default function Dashboard() {
           </div>
           <div className="card p-4">
             <div className="text-sm text-gray-500">Mentor</div>
-            <div className="text-2xl font-semibold mt-1">{student?.mentorId ?? '—'}</div>
+            <div className="text-2xl font-semibold mt-1 text-lg">{student?.mentor?.user?.name ?? 'Unassigned'}</div>
           </div>
         </div>
       )}

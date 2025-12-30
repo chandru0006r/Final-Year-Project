@@ -6,6 +6,8 @@ const morgan = require('morgan');
 const connectDB = require('./src/config/db');
 
 const seedData = require('./src/utils/seeder');
+const seedScale = require('./seed_scale');
+const seedLoans = require('./seed_loans');
 
 // Load env vars
 dotenv.config();
@@ -13,7 +15,9 @@ dotenv.config();
 // Connect to database and seed
 const startServer = async () => {
     await connectDB();
-    await seedData();
+    await seedData(); // Base data
+    await seedScale(); // 50 students + 5 mentors
+    await seedLoans(); // Extra loans
 };
 startServer();
 

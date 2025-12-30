@@ -10,7 +10,8 @@ const ROLE_NAV = {
     { to: '/profile', label: 'Profile' },
   ],
   mentor: [
-    { to: '/mentor', label: 'Mentor' },
+    { to: '/mentor', label: 'Students', end: true },
+    { to: '/mentor/loans', label: 'Loan Approvals' },
     { to: '/profile', label: 'Profile' },
   ],
   admin: [

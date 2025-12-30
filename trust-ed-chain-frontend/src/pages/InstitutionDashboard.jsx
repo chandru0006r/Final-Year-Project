@@ -49,7 +49,7 @@ export default function InstitutionDashboard({ defaultTab = 'mentors' }) {
     const [selectedStudent, setSelectedStudent] = useState(null);
 
     // Form States
-    const [formData, setFormData] = useState({ name: '', email: '', password: 'password123', specialization: '', cgpa: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', password: '123', specialization: '', cgpa: '', registerNumber: '' });
     const [selectedMentorId, setSelectedMentorId] = useState('');
 
     const fetchDashboard = async () => {
@@ -128,7 +128,7 @@ export default function InstitutionDashboard({ defaultTab = 'mentors' }) {
         }
     };
 
-    const resetForm = () => setFormData({ name: '', email: '', password: 'password123', specialization: '', cgpa: '' });
+    const resetForm = () => setFormData({ name: '', email: '', password: '123', specialization: '', cgpa: '', registerNumber: '' });
 
     if (loading) return <div className="p-6">Loading...</div>;
 
@@ -236,6 +236,7 @@ export default function InstitutionDashboard({ defaultTab = 'mentors' }) {
                         <thead>
                             <tr className="border-b dark:border-gray-700 text-sm text-gray-500">
                                 <th className="py-2">Name</th>
+                                <th className="py-2">Register No</th>
                                 <th className="py-2">Email</th>
                                 <th className="py-2">Mentor</th>
                                 <th className="py-2">Action</th>
@@ -245,6 +246,7 @@ export default function InstitutionDashboard({ defaultTab = 'mentors' }) {
                             {filteredStudents.map(s => (
                                 <tr key={s._id} className="border-b dark:border-gray-800">
                                     <td className="py-3 font-medium">{s.user?.name || 'Unknown'}</td>
+                                    <td className="py-3 text-sm">{s.registerNumber || '-'}</td>
                                     <td className="py-3 text-sm text-gray-500">{s.user?.email || 'No Email'}</td>
                                     <td className="py-3 text-sm">
                                         {s.mentor ? (
@@ -393,6 +395,7 @@ export default function InstitutionDashboard({ defaultTab = 'mentors' }) {
                         <h3 className="text-lg font-bold mb-4">Add New Student</h3>
                         <form onSubmit={handleAddStudent}>
                             <input className="input mb-3" placeholder="Full Name" required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
+                            <input className="input mb-3" placeholder="Register Number" required value={formData.registerNumber} onChange={e => setFormData({ ...formData, registerNumber: e.target.value })} />
                             <input className="input mb-3" placeholder="Email" type="email" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                             <input className="input mb-3" placeholder="CGPA" type="number" step="0.1" value={formData.cgpa} onChange={e => setFormData({ ...formData, cgpa: e.target.value })} />
                             <input className="input mb-4" placeholder="Temporary Password" value={formData.password} onChange={e => setFormData({ ...formData, password: e.target.value })} />

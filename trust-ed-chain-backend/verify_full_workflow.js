@@ -27,16 +27,16 @@ async function runTest() {
     try {
         // 1. Login all users
         console.log('\n🔐 Logging in Users...');
-        const student = await request('POST', '/auth/login', null, { email: 'student@test.com', password: 'password123', role: 'student' });
+        const student = await request('POST', '/auth/login', null, { email: 'student@test.com', password: '123', role: 'student' });
         console.log('✅ Student Logged In');
 
-        const mentor = await request('POST', '/auth/login', null, { email: 'mentor@test.com', password: 'password123', role: 'mentor' });
+        const mentor = await request('POST', '/auth/login', null, { email: 'mentor@test.com', password: '123', role: 'mentor' });
         console.log('✅ Mentor Logged In');
 
-        const admin = await request('POST', '/auth/login', null, { email: 'admin@test.com', password: 'password123', role: 'admin' });
+        const admin = await request('POST', '/auth/login', null, { email: 'admin@test.com', password: '123', role: 'admin' });
         console.log('✅ Admin Logged In');
 
-        const investor = await request('POST', '/auth/login', null, { email: 'investor@test.com', password: 'password123', role: 'investor' });
+        const investor = await request('POST', '/auth/login', null, { email: 'investor@test.com', password: '123', role: 'investor' });
         console.log('✅ Investor Logged In');
 
 

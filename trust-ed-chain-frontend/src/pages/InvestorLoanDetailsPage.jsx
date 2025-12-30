@@ -41,15 +41,15 @@ export default function InvestorLoanDetailsPage() {
           <div className="text-sm text-gray-500">Purpose</div>
           <div className="text-xl font-semibold">{loan.purpose}</div>
           <div className="mt-2 text-sm text-gray-500">College</div>
-          <div className="font-medium">{loan.college}</div>
+          <div className="font-medium">{loan.student?.institution?.name || 'Unknown'}</div>
           <div className="mt-2 text-sm text-gray-500">Loan ID</div>
-          <div className="font-medium">{loan.id}</div>
+          <div className="font-medium">{loan._id}</div>
           <div className="mt-2 text-sm text-gray-500">Amount</div>
           <div className="font-medium">₹ {loan.amount.toLocaleString()}</div>
           <div className="mt-2 text-sm text-gray-500">Interest</div>
           <div className="font-medium">{loan.interestRate}%</div>
           <div className="mt-2 text-sm text-gray-500">Trust Score</div>
-          <div className="font-medium">{loan.trustScore}%</div>
+          <div className="font-medium">{loan.student?.trustScore}%</div>
         </div>
         <div className="card p-4">
           <div className="text-sm text-gray-500">Documents</div>

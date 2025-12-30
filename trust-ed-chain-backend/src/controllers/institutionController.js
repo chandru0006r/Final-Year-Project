@@ -88,9 +88,9 @@ const addMentor = async (req, res) => {
 */
 const addStudent = async (req, res) => {
     try {
-        const { name, email, password, cgpa } = req.body;
+    const { name, email, password, cgpa, registerNumber } = req.body;
 
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !registerNumber) {
             return res.status(400).json({ message: 'Please provide all fields' });
         }
 
@@ -117,6 +117,7 @@ const addStudent = async (req, res) => {
             user: user._id,
             institution: institution._id,
             cgpa: cgpa || 0,
+            registerNumber,
             trustScore: 100, // Default start
             microLoanLimit: 5000
         });

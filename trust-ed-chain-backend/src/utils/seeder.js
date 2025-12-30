@@ -14,7 +14,7 @@ const seedData = async () => {
         const adminUser = await User.create({
             name: 'Super Admin',
             email: 'admin@test.com',
-            password: 'password123',
+            password: '123',
             role: 'admin',
         });
 
@@ -33,21 +33,21 @@ const seedData = async () => {
         const mentorUser = await User.create({
             name: 'Dr. Smith',
             email: 'mentor@test.com',
-            password: 'password123',
+            password: '123',
             role: 'mentor',
         });
 
         const studentUser = await User.create({
             name: 'John Doe',
             email: 'student@test.com',
-            password: 'password123',
+            password: '123',
             role: 'student',
         });
 
         const investorUser = await User.create({
             name: 'Angel Alice',
             email: 'investor@test.com',
-            password: 'password123',
+            password: '123',
             role: 'investor',
         });
         console.log('✅ Users created');
@@ -66,6 +66,7 @@ const seedData = async () => {
             user: studentUser._id,
             mentor: mentorProfile._id, // Assigned to Dr. Smith
             institution: college._id,  // Belongs to Tech Uni
+            registerNumber: 'REG2024000',
             cgpa: 3.8,
             trustScore: 100,
             microLoanLimit: 5000,

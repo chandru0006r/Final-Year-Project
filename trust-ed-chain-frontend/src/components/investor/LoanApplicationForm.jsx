@@ -18,12 +18,10 @@ export default function LoanApplicationForm() {
   const onSubmit = async (data) => {
     const files = Array.from(data.documents?.length ? data.documents : []).map((f) => f.name);
     await applyLoan({
-      studentId: 'stu-001',
       amount: data.amount,
       purpose: data.purpose,
+      type: 'MACRO',
       documents: files,
-      trustScore: student?.trustScore ?? 70,
-      college: student?.college ?? 'ABC College',
     });
     toast.success('Loan application submitted');
     reset();

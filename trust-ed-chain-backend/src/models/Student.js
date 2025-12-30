@@ -15,6 +15,11 @@ const studentSchema = new mongoose.Schema({
         ref: 'Institution',
         required: true,
     },
+    registerNumber: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     cgpa: {
         type: Number,
         default: 0.0,
@@ -35,6 +40,16 @@ const studentSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    mentorRemarks: [{
+        text: String,
+        date: { type: Date, default: Date.now }
+    }],
+    trustBreakdown: {
+        paymentHistory: { type: Number, default: 0 },
+        academicPerformance: { type: Number, default: 0 },
+        endorsements: { type: Number, default: 0 },
+        platformActivity: { type: Number, default: 0 }
+    }
     // track SEF withdrawals separately if needed, or just transaction logs
 });
 

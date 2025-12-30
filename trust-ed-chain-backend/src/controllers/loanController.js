@@ -52,6 +52,16 @@ const applyLoan = async (req, res) => {
             approvedByAdmin,
         });
 
+        // 4. Log to Blockchain (Async, don't block response)
+        try {
+             // Convert Mongo ID to BigInt for uint256
+             const loanIdBigInt = BigInt('0x' + loan._id.toString());
+             const { logLoanOnChain } = require('../utils/blockchain'); // Lazy require
+             logLoanOnChain(loanIdBigInt, 'Created', amount, status).catch(err => console.error('BG Blockchain Log Failed', err));
+        } catch (chainErr) {
+            console.error('Blockchain Pre-check Error:', chainErr);
+        }
+
         res.status(201).json(loan);
     } catch (error) {
         console.error(error);
@@ -77,13 +87,28 @@ const getLoans = async (req, res) => {
             const student = await Student.findOne({ user: req.user.id });
             if (student) query.student = student._id;
         }
-        // If Mentor, only assigned students? (For now, all loans or filter later)
+        // If Mentor, only show loans from their assigned students
+        if (req.user.role === 'mentor') {
+             // Find Mentor Profile to get ID
+             const Mentor = require('../models/Mentor');
+             const mentorProfile = await Mentor.findOne({ user: req.user.id });
+             if (mentorProfile) {
+                 // Find all students assigned to this mentor
+                 const Student = require('../models/Student');
+                 const students = await Student.find({ mentor: mentorProfile._id });
+                 const studentIds = students.map(s => s._id);
+                 
+                 // Filter loans for these students
+                 query.student = { $in: studentIds };
+             }
+        }
 
         // Populate student details
         const loans = await Loan.find(query).populate({
             path: 'student',
             populate: [
                 { path: 'user', select: 'name email' },
+                { path: 'institution', select: 'name' },
                 { path: 'mentor', select: 'specialization user', populate: { path: 'user', select: 'name' } }
             ]
         });

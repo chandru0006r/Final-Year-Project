@@ -90,7 +90,8 @@ export default function AppRoutes() {
 
         {/* Mentor Routes */}
         <Route element={<RoleGuard allowedRoles={['mentor']} />}>
-          <Route path="/mentor" element={<MentorDashboard />} />
+          <Route path="/mentor" element={<MentorDashboard view="students" />} />
+          <Route path="/mentor/loans" element={<MentorDashboard view="loans" />} />
         </Route>
 
         {/* Admin Routes */}

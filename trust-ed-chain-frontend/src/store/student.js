@@ -23,7 +23,7 @@ export const useStudentStore = create((set, get) => ({
 
   fetchStudents: async (mentorId) => {
     try {
-      const res = await api.get(`/students${mentorId ? `?mentorId=${mentorId}` : ''}`);
+      const res = await api.get(`/student${mentorId ? `?mentorId=${mentorId}` : ''}`);
       set({ students: res.data });
     } catch (e) { /* ignore */ }
   },
@@ -116,19 +116,19 @@ export const useStudentStore = create((set, get) => ({
 
   mentorApproveLoan: async (loanId) => {
     const res = await api.post('/loans/mentor-approve', { loanId });
-    set({ loans: get().loans.map(l => l.id === loanId ? res.data : l) });
+    set({ loans: get().loans.map(l => l._id === loanId ? res.data : l) });
     return res.data;
   },
 
   adminApproveLoan: async (loanId) => {
     const res = await api.post('/loans/admin-approve', { loanId });
-    set({ loans: get().loans.map(l => l.id === loanId ? res.data : l) });
+    set({ loans: get().loans.map(l => l._id === loanId ? res.data : l) });
     return res.data;
   },
 
   fundLoan: async (loanId) => {
     const res = await api.post('/loans/fund', { loanId });
-    set({ loans: get().loans.map(l => l.id === loanId ? res.data : l) });
+    set({ loans: get().loans.map(l => l._id === loanId ? res.data : l) });
     return res.data;
   },
 
